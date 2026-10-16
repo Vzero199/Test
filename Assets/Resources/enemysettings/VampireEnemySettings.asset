@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc178861325eafa11f419f6f47bae5f, type: 3}
+  m_Name: VampireEnemySettings
+  m_EditorClassIdentifier:
+  enemyType: 1
+  currentMoveSpeed: 200
+  currentInteractionSpeed: 3
+  interactionCooldown: 1
+  resistanceTime: 1.5
+  viewDistance: 1500
+  chaseTime: 15
+  hunterInstinctCooldown: 20
+  hearDistance: 0
+  hunterInstinctTime: {x: 7, y: 10}
+  colliderSize: {x: 100, y: 200, z: 20}
+  animatorController: {fileID: 9100000, guid: 6139338b5ee754c4493592b234098926, type: 2}
+  animator: {fileID: 0}
+  initialPriority: 10
+  BatsMoveSpeed: 336

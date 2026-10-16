@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4206a0b89d95243e1739a76e1dce62ae, type: 3}
+  m_Name: HoodieCatEnemySettings
+  m_EditorClassIdentifier:
+  enemyType: 8
+  currentMoveSpeed: 185
+  currentInteractionSpeed: 2
+  interactionCooldown: 1
+  resistanceTime: 2
+  viewDistance: 400
+  chaseTime: 15
+  hunterInstinctCooldown: 20
+  hearDistance: 600
+  hunterInstinctTime: {x: 20, y: 25}
+  colliderSize: {x: 100, y: 200, z: 50}
+  animatorController: {fileID: 9100000, guid: 3ffa1329e48ceb948b7c25b85d6e058e, type: 2}
+  animator: {fileID: 0}
+  initialPriority: 10
+  stepPrefab: {fileID: 1709254077376921, guid: 41cde3a1cf3e564499edaac252932b16, type: 2}
+  isAngry: 0

@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Disappear
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 014077dd1b6c8a3448e5956878089265, type: 2}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 01e39c62ab881654f9a4507ed800c520, type: 2}
+    - time: 0.71666664
+      value: {fileID: 21300000, guid: 77af7c250b6c2ff4cbece555bb90c9e8, type: 2}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 3ecbb3f7a32bd864a9aae31ac52124a4, type: 2}
+    - time: 0.98333335
+      value: {fileID: 21300000, guid: b8bb72fb1f5ee1442a48cd226e9d762e, type: 2}
+    - time: 1.1166667
+      value: {fileID: 21300000, guid: 62b8ca0a54adb634e9f404ff0da95b6a, type: 2}
+    - time: 1.2833333
+      value: {fileID: 21300000, guid: 8635bcd48b157084e999be0acfad1886, type: 2}
+    - time: 1.4666667
+      value: {fileID: 21300000, guid: 8635bcd48b157084e999be0acfad1886, type: 2}
+    attribute: m_Sprite
+    path:
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 60
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 014077dd1b6c8a3448e5956878089265, type: 2}
+    - {fileID: 21300000, guid: 01e39c62ab881654f9a4507ed800c520, type: 2}
+    - {fileID: 21300000, guid: 77af7c250b6c2ff4cbece555bb90c9e8, type: 2}
+    - {fileID: 21300000, guid: 3ecbb3f7a32bd864a9aae31ac52124a4, type: 2}
+    - {fileID: 21300000, guid: b8bb72fb1f5ee1442a48cd226e9d762e, type: 2}
+    - {fileID: 21300000, guid: 62b8ca0a54adb634e9f404ff0da95b6a, type: 2}
+    - {fileID: 21300000, guid: 8635bcd48b157084e999be0acfad1886, type: 2}
+    - {fileID: 21300000, guid: 8635bcd48b157084e999be0acfad1886, type: 2}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 1.4833333
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0.41666666
+    functionName: DoppSnapSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.71666664
+    functionName: DoppPuffSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

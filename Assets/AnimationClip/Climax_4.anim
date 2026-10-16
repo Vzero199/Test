@@ -1,0 +1,399 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Climax
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: -80, y: -120, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 4
+        value: {x: -80, y: -120, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Hero_Idle_DAY_0000 (1)
+  m_ScaleCurves: []
+  m_FloatCurves:
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Hero_Idle_DAY_0000
+    classID: 1
+    script: {fileID: 0}
+    flags: 0
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 53ead6426a8e16e4fb61649a8b2be686, type: 2}
+    - time: 0.11666667
+      value: {fileID: 21300000, guid: 12bace3c8a8f41d43bba040ec8d6c6c0, type: 2}
+    - time: 0.21666667
+      value: {fileID: 21300000, guid: 68f78b7c61d764d44816bcd0629e341f, type: 2}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 83f30c281e10c06419048d7fdeea7c0f, type: 2}
+    - time: 0.45
+      value: {fileID: 21300000, guid: 07b7851518c1513408c98b00d4f4cdc0, type: 2}
+    - time: 0.55
+      value: {fileID: 21300000, guid: 597312c1671bbd3479b3d564b4912ee7, type: 2}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: cc2d724594106624f80add4c7f411571, type: 2}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: b935dee533623334396f0c32e19eff08, type: 2}
+    - time: 0.95
+      value: {fileID: 21300000, guid: 8ae13b03ec269ac48900865478202abe, type: 2}
+    - time: 1.05
+      value: {fileID: 21300000, guid: bfcae76276f19d8438d1ed2d0a99e65f, type: 2}
+    - time: 1.1666666
+      value: {fileID: 21300000, guid: 37177ea51b201774f8cebae055f57ee3, type: 2}
+    - time: 1.2833333
+      value: {fileID: 21300000, guid: 8092dea74c5e6094c9eb3656e2e4331a, type: 2}
+    - time: 1.3833333
+      value: {fileID: 21300000, guid: 6a20e24778a31ce478511350b5e95eff, type: 2}
+    - time: 1.5
+      value: {fileID: 21300000, guid: 38569e5ec68fb2646bf49030e0ae1ca4, type: 2}
+    - time: 1.6166667
+      value: {fileID: 21300000, guid: 00516a43638c61a4f84e25f71a2a83b1, type: 2}
+    - time: 1.7166667
+      value: {fileID: 21300000, guid: 05d333784f2561848ba5f116ddf7cd23, type: 2}
+    - time: 1.8333334
+      value: {fileID: 21300000, guid: c2f492be456525d498240da4aa36c094, type: 2}
+    - time: 1.95
+      value: {fileID: 21300000, guid: f5d0da159eb9d824ba19e9b78d9cf00f, type: 2}
+    - time: 2.05
+      value: {fileID: 21300000, guid: 3c343c1526c946e4ca45508d68f10c84, type: 2}
+    - time: 2.1666667
+      value: {fileID: 21300000, guid: 97bff339105499e44b758002e0e50849, type: 2}
+    - time: 2.3333333
+      value: {fileID: 21300000, guid: a38b9ea792cc7a1439dc6927c7aa28fb, type: 2}
+    - time: 2.45
+      value: {fileID: 21300000, guid: 9b9790342a1a3554cbb8f5a285722f76, type: 2}
+    - time: 2.55
+      value: {fileID: 21300000, guid: 248998e2fb5ca8e42b394ba6953d70b3, type: 2}
+    - time: 2.6666667
+      value: {fileID: 21300000, guid: 2e4cbbc9c36da0d4882b849692a81e5c, type: 2}
+    - time: 2.7833333
+      value: {fileID: 21300000, guid: 7b1c11b3f06ec64409e1de62b3b45169, type: 2}
+    - time: 2.8833334
+      value: {fileID: 21300000, guid: 2fd5d528e39a33a4cb176223f7699c96, type: 2}
+    - time: 3
+      value: {fileID: 21300000, guid: 433b7a182e0590547b40628e6ce41e4d, type: 2}
+    attribute: m_Sprite
+    path:
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 0}
+    - time: 0.33333334
+      value: {fileID: 0}
+    - time: 0.6666667
+      value: {fileID: 0}
+    - time: 1
+      value: {fileID: 0}
+    - time: 1.3333334
+      value: {fileID: 0}
+    - time: 1.6666666
+      value: {fileID: 0}
+    - time: 2
+      value: {fileID: 0}
+    - time: 2.3333333
+      value: {fileID: 0}
+    - time: 2.6666667
+      value: {fileID: 0}
+    - time: 3
+      value: {fileID: 0}
+    - time: 3.3333333
+      value: {fileID: 0}
+    - time: 3.6666667
+      value: {fileID: 0}
+    attribute: m_Sprite
+    path: Hero_Idle_DAY_0000 (1)
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 60
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 1349706757
+      attribute: 2086281974
+      script: {fileID: 0}
+      typeID: 1
+      customType: 0
+      isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 3700439658
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 3700439658
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 53ead6426a8e16e4fb61649a8b2be686, type: 2}
+    - {fileID: 21300000, guid: 12bace3c8a8f41d43bba040ec8d6c6c0, type: 2}
+    - {fileID: 21300000, guid: 68f78b7c61d764d44816bcd0629e341f, type: 2}
+    - {fileID: 21300000, guid: 83f30c281e10c06419048d7fdeea7c0f, type: 2}
+    - {fileID: 21300000, guid: 07b7851518c1513408c98b00d4f4cdc0, type: 2}
+    - {fileID: 21300000, guid: 597312c1671bbd3479b3d564b4912ee7, type: 2}
+    - {fileID: 21300000, guid: cc2d724594106624f80add4c7f411571, type: 2}
+    - {fileID: 21300000, guid: b935dee533623334396f0c32e19eff08, type: 2}
+    - {fileID: 21300000, guid: 8ae13b03ec269ac48900865478202abe, type: 2}
+    - {fileID: 21300000, guid: bfcae76276f19d8438d1ed2d0a99e65f, type: 2}
+    - {fileID: 21300000, guid: 37177ea51b201774f8cebae055f57ee3, type: 2}
+    - {fileID: 21300000, guid: 8092dea74c5e6094c9eb3656e2e4331a, type: 2}
+    - {fileID: 21300000, guid: 6a20e24778a31ce478511350b5e95eff, type: 2}
+    - {fileID: 21300000, guid: 38569e5ec68fb2646bf49030e0ae1ca4, type: 2}
+    - {fileID: 21300000, guid: 00516a43638c61a4f84e25f71a2a83b1, type: 2}
+    - {fileID: 21300000, guid: 05d333784f2561848ba5f116ddf7cd23, type: 2}
+    - {fileID: 21300000, guid: c2f492be456525d498240da4aa36c094, type: 2}
+    - {fileID: 21300000, guid: f5d0da159eb9d824ba19e9b78d9cf00f, type: 2}
+    - {fileID: 21300000, guid: 3c343c1526c946e4ca45508d68f10c84, type: 2}
+    - {fileID: 21300000, guid: 97bff339105499e44b758002e0e50849, type: 2}
+    - {fileID: 21300000, guid: a38b9ea792cc7a1439dc6927c7aa28fb, type: 2}
+    - {fileID: 21300000, guid: 9b9790342a1a3554cbb8f5a285722f76, type: 2}
+    - {fileID: 21300000, guid: 248998e2fb5ca8e42b394ba6953d70b3, type: 2}
+    - {fileID: 21300000, guid: 2e4cbbc9c36da0d4882b849692a81e5c, type: 2}
+    - {fileID: 21300000, guid: 7b1c11b3f06ec64409e1de62b3b45169, type: 2}
+    - {fileID: 21300000, guid: 2fd5d528e39a33a4cb176223f7699c96, type: 2}
+    - {fileID: 21300000, guid: 433b7a182e0590547b40628e6ce41e4d, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 4
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0
+    functionName: CreateBreatheEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.11666667
+    functionName: ClimaxSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.11666667
+    functionName: ClimaxSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45
+    functionName: LetsShakeElevator
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45
+    functionName: Hloop3Sound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.55
+    functionName: CreateBreatheEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.05
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.05
+    functionName: CreateBreatheEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.3833333
+    functionName: LetsShakeElevator
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.3833333
+    functionName: Hloop3Sound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.3833333
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6166667
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6166667
+    functionName: CreateBreatheEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.05
+    functionName: LetsShakeElevator
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.05
+    functionName: Hloop3Sound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.05
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.7833333
+    functionName: CreateBreatheEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 4
+    functionName: EndSexMode
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

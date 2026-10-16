@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: wispHClimax
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 235af33801b59714baba42e8fad185ca, type: 2}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: 1e0d7685d89f1544aa40462328535c39, type: 2}
+    - time: 0.15
+      value: {fileID: 21300000, guid: 3ee5aa2c431676c4ab04fe712e9828c7, type: 2}
+    - time: 0.23333333
+      value: {fileID: 21300000, guid: 21d6f82eb20d2844887419b239111d18, type: 2}
+    - time: 0.31666666
+      value: {fileID: 21300000, guid: b5bbb5bbf6852aa4285f2022092c083f, type: 2}
+    - time: 0.4
+      value: {fileID: 21300000, guid: 31eebc232b1f4334892ef77d35eaa88b, type: 2}
+    - time: 0.46666667
+      value: {fileID: 21300000, guid: 1d03a44403f45c7488430eeacaa669f9, type: 2}
+    - time: 0.55
+      value: {fileID: 21300000, guid: aebaaa25b0e7aa048991300e3dd28591, type: 2}
+    - time: 0.6333333
+      value: {fileID: 21300000, guid: 11a1c6fac39fd314393237e40f6cd84b, type: 2}
+    - time: 0.7
+      value: {fileID: 21300000, guid: 744a6ac9c75a0ff40ac05b8b7c6a6e0a, type: 2}
+    - time: 0.78333336
+      value: {fileID: 21300000, guid: d0d6e5a88a6730c4ab48e17aed61349c, type: 2}
+    - time: 0.8666667
+      value: {fileID: 21300000, guid: cfc3097764f96854797bcab46c67a0e2, type: 2}
+    - time: 0.95
+      value: {fileID: 21300000, guid: 80aee7e7d7f352c4a83be9149842bf40, type: 2}
+    - time: 1.0166667
+      value: {fileID: 21300000, guid: c7e6781c90e787f468ddad9994d6d83c, type: 2}
+    - time: 1.1
+      value: {fileID: 21300000, guid: 49aefc746587ab34abfeaaaf75dc9d14, type: 2}
+    - time: 1.1833333
+      value: {fileID: 21300000, guid: 36fda838fdf8f0740b6e9f3a2a106326, type: 2}
+    - time: 1.2666667
+      value: {fileID: 21300000, guid: e5ed21712057a7e45b591f86c7127068, type: 2}
+    - time: 1.3333334
+      value: {fileID: 21300000, guid: 22bf02525ee0dfb42ae1823dda676dc8, type: 2}
+    - time: 1.4166666
+      value: {fileID: 21300000, guid: b46d4054bbc46854b87cbe66a392aa99, type: 2}
+    attribute: m_Sprite
+    path:
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 60
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 235af33801b59714baba42e8fad185ca, type: 2}
+    - {fileID: 21300000, guid: 1e0d7685d89f1544aa40462328535c39, type: 2}
+    - {fileID: 21300000, guid: 3ee5aa2c431676c4ab04fe712e9828c7, type: 2}
+    - {fileID: 21300000, guid: 21d6f82eb20d2844887419b239111d18, type: 2}
+    - {fileID: 21300000, guid: b5bbb5bbf6852aa4285f2022092c083f, type: 2}
+    - {fileID: 21300000, guid: 31eebc232b1f4334892ef77d35eaa88b, type: 2}
+    - {fileID: 21300000, guid: 1d03a44403f45c7488430eeacaa669f9, type: 2}
+    - {fileID: 21300000, guid: aebaaa25b0e7aa048991300e3dd28591, type: 2}
+    - {fileID: 21300000, guid: 11a1c6fac39fd314393237e40f6cd84b, type: 2}
+    - {fileID: 21300000, guid: 744a6ac9c75a0ff40ac05b8b7c6a6e0a, type: 2}
+    - {fileID: 21300000, guid: d0d6e5a88a6730c4ab48e17aed61349c, type: 2}
+    - {fileID: 21300000, guid: cfc3097764f96854797bcab46c67a0e2, type: 2}
+    - {fileID: 21300000, guid: 80aee7e7d7f352c4a83be9149842bf40, type: 2}
+    - {fileID: 21300000, guid: c7e6781c90e787f468ddad9994d6d83c, type: 2}
+    - {fileID: 21300000, guid: 49aefc746587ab34abfeaaaf75dc9d14, type: 2}
+    - {fileID: 21300000, guid: 36fda838fdf8f0740b6e9f3a2a106326, type: 2}
+    - {fileID: 21300000, guid: e5ed21712057a7e45b591f86c7127068, type: 2}
+    - {fileID: 21300000, guid: 22bf02525ee0dfb42ae1823dda676dc8, type: 2}
+    - {fileID: 21300000, guid: b46d4054bbc46854b87cbe66a392aa99, type: 2}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 1.4833333
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0.083333336
+    functionName: HLickloopSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.23333333
+    functionName: ClimaxSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.23333333
+    functionName: ClimaxSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.4
+    functionName: HJobloop1Sound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.4
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.55
+    functionName: HLickloopSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.78333336
+    functionName: HJobloop1Sound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.78333336
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.0333333
+    functionName: HLickloopSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.1833333
+    functionName: CreateWierdWordEffect
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.1833333
+    functionName: HJobloop1Sound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.35
+    functionName: HLickloopSound
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.4833333
+    functionName: EndSexMode
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

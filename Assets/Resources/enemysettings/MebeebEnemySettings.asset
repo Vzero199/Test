@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6755b8d0152ea408be5ed6d02a3ecb62, type: 3}
+  m_Name: MebeebEnemySettings
+  m_EditorClassIdentifier:
+  enemyType: 2
+  currentMoveSpeed: 200
+  currentInteractionSpeed: 1
+  interactionCooldown: 1
+  resistanceTime: 2
+  viewDistance: 100
+  chaseTime: 20
+  hunterInstinctCooldown: 30
+  hearDistance: 0
+  hunterInstinctTime: {x: 10, y: 15}
+  colliderSize: {x: 0, y: 0, z: 0}
+  animatorController: {fileID: 0}
+  animator: {fileID: 0}
+  initialPriority: 2
+  bearPools:
+  - difficulty: 0
+    bearPool:
+    - {fileID: 1709254077376921, guid: b72b17ecefb508949ad5889b1c1d4d36, type: 2}
+    - {fileID: 1709254077376921, guid: 143891d88adf52d479288af0eaf31ecb, type: 2}
+    - {fileID: 1709254077376921, guid: cc0613c4d0201f94ca0586cc5509a798, type: 2}
+  - difficulty: 1
+    bearPool:
+    - {fileID: 1709254077376921, guid: 0f8833cc6f5d06b438a658b1ea5a6e6f, type: 2}
+    - {fileID: 1709254077376921, guid: d5baf338005798e4181540bbb7f3846b, type: 2}
+    - {fileID: 1709254077376921, guid: 14bbc301efc7f6442844241b8c870dd7, type: 2}
+  - difficulty: 2
+    bearPool:
+    - {fileID: 1709254077376921, guid: e379e7d3a69af0244a2df2a639d0f9b9, type: 2}
+    - {fileID: 1709254077376921, guid: 7f205f25a63bfe043985b23cd25fb481, type: 2}
+    - {fileID: 1709254077376921, guid: fd9374509b447e04ea67a85613612c06, type: 2}
+  - difficulty: 3
+    bearPool:
+    - {fileID: 1709254077376921, guid: 4843e8015b50a854e8a581d4af89649c, type: 2}
+    - {fileID: 1709254077376921, guid: 2a017c3beb796964d9993049866d9ccf, type: 2}
+    - {fileID: 1709254077376921, guid: ebc4b976a66a4a146bda513d45036a7d, type: 2}
+  spawnOffset: {x: 120, y: -160, z: 0}

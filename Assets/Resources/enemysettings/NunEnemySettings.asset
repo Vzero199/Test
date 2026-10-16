@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d699a69a283b33c4b9e0f5368deeeed, type: 3}
+  m_Name: NunEnemySettings
+  m_EditorClassIdentifier:
+  enemyType: 3
+  currentMoveSpeed: 200
+  currentInteractionSpeed: 1
+  interactionCooldown: 1
+  resistanceTime: 2
+  viewDistance: 100
+  chaseTime: 20
+  hunterInstinctCooldown: 30
+  hearDistance: 0
+  hunterInstinctTime: {x: 10, y: 15}
+  colliderSize: {x: 100, y: 100, z: 0}
+  animatorController: {fileID: 9100000, guid: ebd576ba33f5fac46a1edd2325953ab6, type: 2}
+  animator: {fileID: 0}
+  initialPriority: 8
+  captureBar: {fileID: 0}
+  captureTime: 50
+  initialSlowdownPercent: 0.2
+  additionalSlowdownPercent: 0.2
+  nunCatchAnimatorController: {fileID: 9100000, guid: 84a213e17ea562947b369df19e6bc1a1, type: 2}
+  prefab: {fileID: 1709254077376921, guid: 2f4b2801f97cdfb40a0639ab4fb13fad, type: 2}

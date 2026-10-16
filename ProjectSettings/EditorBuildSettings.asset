@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/IntroScene.unity
+    guid: 86535f1e488dc884e8a9477aab33203b
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e2aee95d51643d6488c49d7909bd84b4
+  - enabled: 1
+    path: Assets/Scenes/FirstDay.unity
+    guid: 578804f92aaefa14c93a4f115fb07a88
+  - enabled: 1
+    path: Assets/Scenes/FirstNight.unity
+    guid: 5727dba6de8819845a9114488f81b2c3
+  - enabled: 1
+    path: Assets/Scenes/SecondDay.unity
+    guid: 206f99d69b4edf643b7f00d183e8904c
+  - enabled: 1
+    path: Assets/Scenes/SecondNight.unity
+    guid: a2376a870e9e9004d98e606ba4f91350
+  - enabled: 1
+    path: Assets/Scenes/ThirdDay.unity
+    guid: 75e20af0e637bc644bb4e3c56069021c
+  - enabled: 1
+    path: Assets/Scenes/ThirdNight.unity
+    guid: a2ed3691549aa4949baa8153a0f996cd
+  - enabled: 1
+    path: Assets/Scenes/FourthDay.unity
+    guid: 090eb8f5d5ed5e145b68446dbd49281f
+  - enabled: 1
+    path: Assets/Scenes/FourthNight.unity
+    guid: 8b3d288655b1a7f4098f6a75fa3f9262
+  - enabled: 1
+    path: Assets/Scenes/FifthDay.unity
+    guid: 803ae0b385081f240bf46780c202f6ef
+  - enabled: 1
+    path: Assets/Scenes/FifthNight.unity
+    guid: b30211bd0ad9e574286c3c20d4049a87
+  - enabled: 1
+    path: Assets/Scenes/NormalEndScene.unity
+    guid: 241dd344361e8a0478b066f65952dacf
+  - enabled: 1
+    path: Assets/Scenes/Gallery.unity
+    guid: 99eed4031803f9544be0938abf7ac5a2
+  - enabled: 1
+    path: Assets/Scenes/FinalTrueScene.unity
+    guid: 52b3c35a224ab4b47b75f8a2cacb825d
+  - enabled: 1
+    path: Assets/Scenes/EndlessNight.unity
+    guid: ffa96fe9d5e95f945a911c2ab207fade
+  m_configObjects: {}

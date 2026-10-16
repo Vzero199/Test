@@ -1,0 +1,179 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!213 &21300000
+Sprite:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mister_D_(160 212)_3
+  m_Rect:
+    serializedVersion: 2
+    x: 488.0429
+    y: 0
+    width: 151.95709
+    height: 212
+  m_Offset: {x: -4.021454, y: 0}
+  m_Border: {x: 0, y: 0, z: 0, w: 0}
+  m_PixelsToUnits: 1
+  m_Pivot: {x: 0.4735356, y: 0.5}
+  m_Extrude: 1
+  m_IsPolygon: 0
+  m_AtlasName:
+  m_PackingTag:
+  m_RenderDataKey:
+    fdf03d1e839781e4dab18b82266f9765: -1776697108
+  m_AtlasTags: []
+  m_SpriteAtlas: {fileID: 0}
+  m_RD:
+    serializedVersion: 3
+    texture: {fileID: 2800000, guid: 4a7abd9202cfd634686bb2a4308436ff, type: 3}
+    alphaTexture: {fileID: 0}
+    secondaryTextures: []
+    m_SubMeshes:
+    - serializedVersion: 2
+      firstByte: 0
+      indexCount: 105
+      topology: 0
+      baseVertex: 0
+      firstVertex: 0
+      vertexCount: 30
+      localAABB:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+    m_IndexBuffer: 02001d001800170018001d001c001b0012001a0012001b00190012001a001800120019000400180019000100180004000200180001001700120018000800120017000600120008000700120006000d00120007000b0012000d00130012000b001600110015001400150011001300140011001200130011000f00120011000e000f00110010000f000e000d000c000b000300090000000200000009000a000200090008000a000900050008000900070005000900080005000600070006000500040003000100000001000300020001000000
+    m_VertexData:
+      serializedVersion: 3
+      m_VertexCount: 30
+      m_Channels:
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 3
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 1
+        offset: 0
+        format: 0
+        dimension: 2
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      m_DataSize: 608
+      _typelessdata: 0000b8c10000bc42000000000000b8c10000b442000000000000b0c10000b242000000000000c0c10000d442000000000000c8c10000d44200000000000098c10000ba4200000000000090c10000b24200000000000090c10000b442000000000000a8c10000b04200000000000090c10000d442000000000000a8c10000b04200000000000040400000aa4200000000000000c00000aa4200000000000000400000c041000000000000a0420000f84100000000000074420000aec2000000000000a042000068c200000000000008420000d44200000000000004420000d4c200000000000040400000b04200000000000000000000ae4200000000000040c00000b04200000000000080c00000d442000000000000b0c10000aa42000000000000b0c10000a04200000000000004c20000d44200000000000038c20000ce4200000000000090c2000030c100000000000090c20000d4c2000000000000b0c10000ac42000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    m_Bindpose: []
+    textureRect:
+      serializedVersion: 2
+      x: 488.0429
+      y: 0
+      width: 151.95709
+      height: 212
+    textureRectOffset: {x: 0, y: 0}
+    atlasRectOffset: {x: -1, y: -1}
+    settingsRaw: 64
+    uvTransform: {x: 1, y: 560, z: 1, w: 106}
+    downscaleMultiplier: 1
+  m_AtlasRD:
+    serializedVersion: 3
+    texture: {fileID: 0}
+    alphaTexture: {fileID: 0}
+    secondaryTextures: []
+    m_SubMeshes: []
+    m_IndexBuffer:
+    m_VertexData:
+      serializedVersion: 3
+      m_VertexCount: 0
+      m_Channels: []
+      m_DataSize: 0
+      _typelessdata:
+    m_Bindpose: []
+    textureRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    textureRectOffset: {x: 0, y: 0}
+    atlasRectOffset: {x: 0, y: 0}
+    settingsRaw: 0
+    uvTransform: {x: 0, y: 0, z: 0, w: 0}
+    downscaleMultiplier: 0
+  m_PhysicsShape:
+  - - {x: 66, y: -64}
+    - {x: 77, y: -54}
+    - {x: 80, y: -49}
+    - {x: 80, y: -29}
+    - {x: 67, y: -18}
+    - {x: 52, y: -18}
+    - {x: 46, y: -21}
+    - {x: 38, y: -33}
+    - {x: 38, y: -51}
+    - {x: 18, y: -32}
+    - {x: 11, y: -30}
+    - {x: 8, y: -36}
+    - {x: -4, y: -26}
+    - {x: -2, y: -18}
+    - {x: -9, y: -14}
+    - {x: -13, y: -14}
+    - {x: -15, y: -15}
+    - {x: -18, y: -31}
+    - {x: -16, y: -41}
+    - {x: -19, y: -56}
+    - {x: -6, y: -67}
+    - {x: 6, y: -70}
+    - {x: -58, y: -76}
+    - {x: -58, y: -67}
+    - {x: -66, y: -63}
+    - {x: -72, y: -75}
+    - {x: -72, y: -93}
+    - {x: -69, y: -103}
+    - {x: -62, y: -106}
+    - {x: 13, y: -106}
+    - {x: 31, y: -100}
+    - {x: 45, y: -95}
+    - {x: 59, y: -85}
+  m_Bones: []
+  m_SpriteID:

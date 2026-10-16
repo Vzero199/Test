@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e604e278aa859f2eb27a90fdaa728b, type: 3}
+  m_Name: WhisperEnemySettings
+  m_EditorClassIdentifier:
+  enemyType: 9
+  currentMoveSpeed: 150
+  currentInteractionSpeed: 1
+  interactionCooldown: 1
+  resistanceTime: 3
+  viewDistance: 8000
+  chaseTime: 50
+  hunterInstinctCooldown: 5
+  hearDistance: 0
+  hunterInstinctTime: {x: 10, y: 15}
+  colliderSize: {x: 100, y: 300, z: 20}
+  animatorController: {fileID: 9100000, guid: 1a1899a04f2b87348b5494832c0296f8, type: 2}
+  animator: {fileID: 0}
+  initialPriority: 10
+  isAngry: 0
