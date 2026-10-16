@@ -930,9 +930,9 @@ public class NightManager : MonoBehaviour
 					where r.gameObject.name == "ShadowObject"
 					select r)
 				{
-					array = item2.color;
-					array.a = 1f;
-					item2.color = array;
+					Color shadowColor = item2.color;
+					shadowColor.a = 1f;
+					item2.color = shadowColor;
 				}
 			}
 			ShineItem[] i = allShineItems;
