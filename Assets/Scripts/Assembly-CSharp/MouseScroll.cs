@@ -73,7 +73,15 @@ public class MouseScroll : MonoBehaviour
 	private void Update()
 	{
 		float num = 0f;
-		Vector2 vector = Mouse.current.delta.ReadValue();
+		Vector2 vector = Vector2.zero;
+if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+{
+    vector = -Touchscreen.current.primaryTouch.delta.ReadValue();
+}
+else if (Mouse.current != null)
+{
+    vector = Mouse.current.delta.ReadValue();
+}
 		if (vector.y != 0f)
 		{
 			float num2 = vector.y * scrollSpeed * Time.deltaTime;
