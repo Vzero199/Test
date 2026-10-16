@@ -23,10 +23,49 @@ jobs:
         with:
           lfs: true
 
-      - uses: actions/cache@v4
+      # Set Android player settings (ARM64 + IL2CPP, no code stripping)
+      - name: Patch Android settings
+        run: |
+          python3 - <<'PY'
+          import re
+          p = "ProjectSettings/ProjectSettings.asset"
+          t = open(p, encoding="utf-8").read()
+          nl = "\r\n" if "\r\n" in t else "\n"
+          lines = t.split(nl)
+
+          def set_top(key, value):
+              for i, l in enumerate(lines):
+                  if re.match(r"^  " + key + r":", l):
+                      lines[i] = "  %s: %s" % (key, value)
+                      return
+              raise SystemExit("key not found: " + key)
+
+          def set_map(key, sub, value):
+              for i, l in enumerate(lines):
+                  if re.match(r"^  " + key + r":\s*(\{\})?\s*$", l):
+                      if l.rstrip().endswith("{}"):
+                          lines[i] = "  %s:" % key
+                      j = i + 1
+                      while j < len(lines) and lines[j].startswith("    "):
+                          if lines[j].strip().startswith(sub + ":"):
+                              lines[j] = "    %s: %s" % (sub, value)
+                              return
+                          j += 1
+                      lines.insert(j, "    %s: %s" % (sub, value))
+                      return
+              raise SystemExit("map not found: " + key)
+
+          set_top("AndroidTargetArchitectures", 2)
+          set_map("scriptingBackend", "Android", 1)
+          set_map("managedStrippingLevel", "Android", 0)
+          open(p, "w", encoding="utf-8", newline="").write(nl.join(lines))
+          PY
+
+      # Restore the import cache (saves about an hour on later runs)
+      - uses: actions/cache/restore@v4
         with:
           path: Library
-          key: Library-Android-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Library-Android-${{ github.run_id }}
           restore-keys: Library-Android-
 
       - uses: game-ci/unity-builder@v4
@@ -38,6 +77,13 @@ jobs:
           unityVersion: 2022.3.25f1
           targetPlatform: Android
           androidExportType: androidPackage
+
+      # Save the cache even if the build fails
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: Library
+          key: Library-Android-${{ github.run_id }}
 
       - uses: actions/upload-artifact@v4
         with:
