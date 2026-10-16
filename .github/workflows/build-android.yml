@@ -210,6 +210,135 @@ jobs:
           key: Library-Android-${{ github.run_id }}
           restore-keys: Library-Android-
 
+      # The recovered scenes point at the game's old package DLLs. Re-point them at the
+      # real package scripts (needs the package cache restored just above).
+      - name: Remap package script references
+        run: |
+          python3 - <<'PY'
+          import os, re, struct, sys, collections
+
+          # ---- MD4 (Unity derives script file IDs from an MD4 hash of namespace + class name) ----
+          def _lrot(x, n):
+              x &= 0xffffffff
+              return ((x << n) | (x >> (32 - n))) & 0xffffffff
+
+          def md4(data):
+              msg = bytearray(data); l = len(msg) * 8
+              msg.append(0x80)
+              while len(msg) % 64 != 56:
+                  msg.append(0)
+              msg += struct.pack("<Q", l)
+              a, b, c, d = 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476
+              F = lambda x, y, z: (x & y) | (~x & z)
+              G = lambda x, y, z: (x & y) | (x & z) | (y & z)
+              H = lambda x, y, z: x ^ y ^ z
+              for off in range(0, len(msg), 64):
+                  X = struct.unpack("<16I", bytes(msg[off:off + 64]))
+                  aa, bb, cc, dd = a, b, c, d
+                  for i in range(16):
+                      s = [3, 7, 11, 19][i % 4]
+                      t = (a + F(b, c, d) + X[i]) & 0xffffffff
+                      a, b, c, d = d, _lrot(t, s), b, c
+                  for i in range(16):
+                      k = (i % 4) * 4 + i // 4; s = [3, 5, 9, 13][i % 4]
+                      t = (a + G(b, c, d) + X[k] + 0x5a827999) & 0xffffffff
+                      a, b, c, d = d, _lrot(t, s), b, c
+                  order = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+                  for i in range(16):
+                      k = order[i]; s = [3, 9, 11, 15][i % 4]
+                      t = (a + H(b, c, d) + X[k] + 0x6ed9eba1) & 0xffffffff
+                      a, b, c, d = d, _lrot(t, s), b, c
+                  a = (a + aa) & 0xffffffff; b = (b + bb) & 0xffffffff
+                  c = (c + cc) & 0xffffffff; d = (d + dd) & 0xffffffff
+              return struct.pack("<4I", a, b, c, d)
+
+          def file_id(ns, name):
+              return struct.unpack("<i", md4(("s\0\0\0" + ns + name).encode("utf-8"))[:4])[0]
+
+          GUID_RE = re.compile(r"^guid:\s*([0-9a-f]{32})", re.M)
+          NS_RE = re.compile(r"^\s*namespace\s+([\w.]+)", re.M)
+          REF_RE = re.compile(r"\{fileID: (-?\d+), guid: ([0-9a-f]{32}), type: 3\}")
+          YAML_EXT = {".unity", ".prefab", ".asset", ".playable", ".controller", ".overridecontroller",
+                      ".anim", ".mask", ".signal", ".mixer", ".lighting", ".preset", ".guiskin",
+                      ".rendertexture", ".spriteatlas", ".brush", ".flare", ".fontsettings"}
+
+          def read(path):
+              with open(path, encoding="utf-8-sig", errors="surrogateescape") as f:
+                  return f.read()
+
+          def main(project_dirs, package_dirs):
+              # 1) every script GUID that exists in the project
+              known = set()
+              for root in project_dirs:
+                  for dp, dn, fn in os.walk(root):
+                      for f in fn:
+                          if f.endswith(".meta"):
+                              m = GUID_RE.search(read(os.path.join(dp, f)))
+                              if m:
+                                  known.add(m.group(1))
+              # 2) class hash -> package script GUID
+              classmap = {}
+              nscripts = 0
+              for root in package_dirs:
+                  for dp, dn, fn in os.walk(root):
+                      if "/Editor" in dp.replace("\\", "/") or "/Tests" in dp.replace("\\", "/"):
+                          continue
+                      for f in fn:
+                          if not f.endswith(".cs"):
+                              continue
+                          meta = os.path.join(dp, f + ".meta")
+                          if not os.path.exists(meta):
+                              continue
+                          g = GUID_RE.search(read(meta))
+                          if not g:
+                              continue
+                          src = read(os.path.join(dp, f))
+                          ns = NS_RE.search(src)
+                          ns = ns.group(1) if ns else ""
+                          classmap.setdefault(file_id(ns, f[:-3]), g.group(1))
+                          nscripts += 1
+              print("package scripts indexed: %d, project script guids: %d" % (nscripts, len(known)))
+              # 3) rewrite references to the old precompiled DLLs
+              fixed = 0; files = 0
+              unmapped = collections.Counter()
+              for root in project_dirs:
+                  for dp, dn, fn in os.walk(root):
+                      for f in fn:
+                          if os.path.splitext(f)[1].lower() not in YAML_EXT:
+                              continue
+                          path = os.path.join(dp, f)
+                          text = read(path)
+                          if "type: 3}" not in text:
+                              continue
+                          changed = [0]
+                          def sub(m):
+                              fid, guid = int(m.group(1)), m.group(2)
+                              if fid == 11500000 or guid in known:
+                                  return m.group(0)
+                              new = classmap.get(fid)
+                              if new is None:
+                                  unmapped[(guid, fid)] += 1
+                                  return m.group(0)
+                              changed[0] += 1
+                              return "{fileID: 11500000, guid: %s, type: 3}" % new
+                          out = REF_RE.sub(sub, text)
+                          if changed[0]:
+                              with open(path, "w", encoding="utf-8", newline="", errors="surrogateescape") as fo:
+                                  fo.write(out)
+                              fixed += changed[0]; files += 1
+              print("references remapped: %d in %d files" % (fixed, files))
+              if unmapped:
+                  print("UNMAPPED references: %d distinct" % len(unmapped))
+                  for (g, i), n in unmapped.most_common(15):
+                      print("   guid %s fileID %d x%d" % (g, i, n))
+
+          pk = [p for p in ["Library/PackageCache"] if os.path.isdir(p)]
+          if not pk:
+              print("WARNING: Library/PackageCache not found, nothing remapped")
+          else:
+              main(["Assets"], pk)
+          PY
+
       - uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
