@@ -65,6 +65,17 @@ jobs:
                       return
               raise SystemExit("map not found: " + key)
 
+          def set_or_add_top(key, value):
+              for i, l in enumerate(lines):
+                  if re.match(r"^  " + key + r":", l):
+                      lines[i] = "  %s: %s" % (key, value)
+                      return
+              for i, l in enumerate(lines):
+                  if l.startswith("PlayerSettings:"):
+                      lines.insert(i + 1, "  %s: %s" % (key, value))
+                      return
+
+          set_or_add_top("AndroidBundleVersionCode", 1)
           set_top("AndroidTargetArchitectures", 2)
           set_map("scriptingBackend", "Android", 1)
           set_map("managedStrippingLevel", "Android", 0)
