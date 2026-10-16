@@ -766,7 +766,7 @@ public class NightManager : MonoBehaviour
 	{
 		Player.GetInstance().BreakInteract();
 		ShineItem[] allShineItems = UnityEngine.Object.FindObjectsOfType<ShineItem>();
-		Color array = allShineItems;
+		ShineItem[] array = allShineItems;
 		foreach (ShineItem shineItem in array)
 		{
 			if (shineItem != null)
