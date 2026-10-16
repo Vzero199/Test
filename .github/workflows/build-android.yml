@@ -76,6 +76,12 @@ jobs:
                       return
 
           set_or_add_top("AndroidBundleVersionCode", 1)
+          # Landscape only (auto-rotate between the two landscape sides)
+          set_or_add_top("defaultScreenOrientation", 4)
+          set_or_add_top("allowedAutorotateToPortrait", 0)
+          set_or_add_top("allowedAutorotateToPortraitUpsideDown", 0)
+          set_or_add_top("allowedAutorotateToLandscapeRight", 1)
+          set_or_add_top("allowedAutorotateToLandscapeLeft", 1)
           set_top("AndroidTargetArchitectures", 2)
           set_map("scriptingBackend", "Android", 1)
           set_map("managedStrippingLevel", "Android", 0)
