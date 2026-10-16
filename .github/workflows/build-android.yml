@@ -88,6 +88,121 @@ jobs:
           open(p, "w", encoding="utf-8", newline="").write(nl.join(lines))
           PY
 
+      # Make the PC-only scripts work with touch, and write the on-screen error overlay
+      - name: Patch scripts for touch
+        run: |
+          python3 - <<'PY'
+          import re, sys, os
+
+          base = "Assets/Scripts/Assembly-CSharp/"
+
+          def patch(name, pattern, repl, flags=0):
+              path = base + name
+              if not os.path.exists(path):
+                  print("WARNING: missing " + path)
+                  return
+              t = open(path, encoding="utf-8-sig").read()
+              new, n = re.subn(pattern, lambda m: repl, t, flags=flags)
+              if n == 0:
+                  if repl in t:
+                      print("already patched: " + name)
+                  else:
+                      print("WARNING: pattern not found in " + name)
+                  return
+              open(path, "w", encoding="utf-8", newline="").write(new)
+              print("patched %s (%d)" % (name, n))
+
+          PTR = "(UnityEngine.InputSystem.Pointer.current != null ? UnityEngine.InputSystem.Pointer.current.position.ReadValue() : Vector2.zero)"
+
+          # Mouse position -> pointer position (mouse or touch)
+          patch("UIDragWithMouse.cs",
+                r"Mouse\.current\.position\.ReadValue\(\)", PTR)
+          patch("RotateToTarget.cs",
+                r"Input\.mousePosition", "((Vector3)" + PTR + ")")
+
+          # Escape key (Android Back button) with the new Input System
+          patch("QuitGameOnKeypress.cs",
+                r"Input\.GetKeyDown\(key\)",
+                "(UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame)")
+
+          # Do not restrict UI input to keyboard and mouse (a phone has neither)
+          patch("PauseMenu.cs",
+                r"inputSystemUIInputModule\.actionsAsset\.devices\s*=\s*new InputDevice\[2\]\s*\{\s*Keyboard\.current,\s*Mouse\.current\s*\};",
+                "inputSystemUIInputModule.actionsAsset.devices = null;", re.S)
+          PY
+          cat > Assets/PortDebugOverlay.cs <<'CS'
+          // Temporary debugging aid (written by the build workflow). Shows the current scene and errors.
+          using System.Collections.Generic;
+          using UnityEngine;
+          using UnityEngine.SceneManagement;
+
+          public class PortDebugOverlay : MonoBehaviour
+          {
+              static readonly List<string> order = new List<string>();
+              static readonly Dictionary<string, int> counts = new Dictionary<string, int>();
+              static string sceneInfo = "(no scene yet)";
+              GUIStyle style;
+              Texture2D bg;
+
+              [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+              static void Init()
+              {
+                  var go = new GameObject("PortDebugOverlay");
+                  DontDestroyOnLoad(go);
+                  go.AddComponent<PortDebugOverlay>();
+                  Application.logMessageReceived += OnLog;
+                  SceneManager.sceneLoaded += (scene, mode) =>
+                  {
+                      sceneInfo = "scene: " + scene.name;
+                      Add("LOADED " + scene.name);
+                  };
+              }
+
+              static void Add(string s)
+              {
+                  int c;
+                  if (counts.TryGetValue(s, out c)) { counts[s] = c + 1; return; }
+                  counts[s] = 1;
+                  order.Add(s);
+                  if (order.Count > 60) { counts.Remove(order[0]); order.RemoveAt(0); }
+              }
+
+              static void OnLog(string condition, string stack, LogType type)
+              {
+                  if (type == LogType.Log || type == LogType.Warning) return;
+                  string top = "";
+                  if (!string.IsNullOrEmpty(stack))
+                  {
+                      var parts = stack.Split('\n');
+                      for (int i = 0; i < parts.Length && i < 2; i++) top += "\n   " + parts[i];
+                  }
+                  Add(type + ": " + condition + top);
+              }
+
+              void OnGUI()
+              {
+                  if (style == null)
+                  {
+                      style = new GUIStyle(GUI.skin.label);
+                      style.fontSize = Mathf.Max(14, Screen.height / 50);
+                      style.wordWrap = true;
+                      style.normal.textColor = Color.white;
+                      bg = new Texture2D(1, 1);
+                      bg.SetPixel(0, 0, new Color(0f, 0f, 0f, 0.75f));
+                      bg.Apply();
+                  }
+                  GUI.depth = -1000;
+                  var area = new Rect(0, 0, Screen.width, Screen.height * 0.7f);
+                  GUI.DrawTexture(area, bg);
+                  string text = sceneInfo + "   time: " + Time.realtimeSinceStartup.ToString("F0") + "s\n";
+                  int start = Mathf.Max(0, order.Count - 9);
+                  for (int i = start; i < order.Count; i++)
+                      text += "[x" + counts[order[i]] + "] " + order[i] + "\n";
+                  GUI.Label(area, text, style);
+              }
+          }
+          CS
+
       # Restore the import cache (saves about an hour on later runs)
       - uses: actions/cache/restore@v4
         with:
