@@ -136,6 +136,18 @@ jobs:
                 "inputSystemUIInputModule.actionsAsset.devices = null;", re.S)
 
 
+          # The 2D light falloff curve is data, not a colour picture: import it as linear
+          def fix_falloff_texture():
+              for dp, dn, fn in os.walk("Assets/Texture2D"):
+                  for f in fn:
+                      if f == "FalloffLookupTexture.png.meta":
+                          path = os.path.join(dp, f)
+                          txt = open(path, encoding="utf-8-sig").read()
+                          new, n = re.subn(r"sRGBTexture: 1", "sRGBTexture: 0", txt)
+                          if n:
+                              open(path, "w", encoding="utf-8", newline="").write(new)
+                              print("falloff texture set to linear")
+
           # The UI input actions only know mouse and keyboard: add touch bindings (same ones Unity's default UI uses)
           import uuid
           def add_touch_bindings():
@@ -170,6 +182,7 @@ jobs:
 
           import os
           add_touch_bindings()
+          fix_falloff_texture()
           PY
           cat > Assets/PortDebugOverlay.cs <<'CS'
           // Temporary debugging aid (written by the build workflow). Shows the current scene and errors.
@@ -246,6 +259,164 @@ jobs:
               }
           }
           CS
+          cat > Assets/PortDiag.cs <<'CSD'
+          // Temporary diagnostics (written by the build workflow): describes what the scene is rendering.
+          using System;
+          using System.Collections;
+          using System.Collections.Generic;
+          using System.Text;
+          using UnityEngine;
+          using UnityEngine.Rendering;
+          using UnityEngine.SceneManagement;
+
+          public class PortDiag : MonoBehaviour
+          {
+              static string text = "";
+              GUIStyle style;
+              Texture2D bg;
+
+              [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+              static void Boot()
+              {
+                  var go = new GameObject("PortDiag");
+                  DontDestroyOnLoad(go);
+                  go.AddComponent<PortDiag>();
+              }
+
+              void Start() { StartCoroutine(Loop()); }
+
+              IEnumerator Loop()
+              {
+                  while (true)
+                  {
+                      yield return new WaitForSeconds(4f);
+                      string sn = SceneManager.GetActiveScene().name;
+                      if (sn == "IntroScene" || sn == "MainMenu") { text = ""; continue; }
+                      yield return new WaitForEndOfFrame();
+                      try { text = Build(); } catch (Exception e) { text = "diag failed: " + e.Message; }
+                  }
+              }
+
+              static string Pix(Texture2D t, float fx, float fy)
+              {
+                  t.ReadPixels(new Rect(Screen.width * fx, Screen.height * fy, 1, 1), 0, 0);
+                  t.Apply();
+                  Color32 c = t.GetPixel(0, 0);
+                  return c.r + "," + c.g + "," + c.b;
+              }
+
+              static string Build()
+              {
+                  var sb = new StringBuilder();
+                  sb.AppendLine("DIAG " + SceneManager.GetActiveScene().name + " t=" + Time.realtimeSinceStartup.ToString("F0") +
+                                "  " + SystemInfo.graphicsDeviceType + "  q=" + QualitySettings.GetQualityLevel());
+                  var rp = GraphicsSettings.currentRenderPipeline;
+                  sb.AppendLine("pipeline: " + (rp != null ? rp.name : "NONE"));
+
+                  var cams = Camera.allCameras;
+                  for (int i = 0; i < cams.Length && i < 3; i++)
+                  {
+                      var c = cams[i];
+                      sb.AppendLine("cam " + c.name + " rect=" + c.rect + " ortho=" + c.orthographicSize + " clear=" + c.clearFlags + " bg=" + c.backgroundColor);
+                  }
+
+                  // 2D lights and volumes, through reflection so nothing here can fail to compile
+                  var all = UnityEngine.Object.FindObjectsOfType<Behaviour>();
+                  int lights = 0; float minI = 999f, maxI = -1f;
+                  var types = new Dictionary<string, int>();
+                  var vols = new StringBuilder();
+                  for (int i = 0; i < all.Length; i++)
+                  {
+                      var b = all[i];
+                      string tn = b.GetType().Name;
+                      if (tn == "Light2D")
+                      {
+                          lights++;
+                          try
+                          {
+                              float it = (float)b.GetType().GetProperty("intensity").GetValue(b, null);
+                              minI = Mathf.Min(minI, it); maxI = Mathf.Max(maxI, it);
+                              string lt = b.GetType().GetProperty("lightType").GetValue(b, null).ToString();
+                              int n; types.TryGetValue(lt, out n); types[lt] = n + 1;
+                          }
+                          catch (Exception) { }
+                      }
+                      else if (tn == "Volume")
+                      {
+                          try
+                          {
+                              object prof = b.GetType().GetProperty("sharedProfile").GetValue(b, null);
+                              vols.Append("[" + b.name + " w=" + b.GetType().GetProperty("weight").GetValue(b, null) + "] ");
+                              if (prof != null)
+                              {
+                                  var comps = prof.GetType().GetField("components").GetValue(prof) as IList;
+                                  for (int k = 0; comps != null && k < comps.Count; k++)
+                                  {
+                                      object comp = comps[k];
+                                      vols.Append(comp.GetType().Name + "{");
+                                      foreach (var f in comp.GetType().GetFields())
+                                      {
+                                          object p = f.GetValue(comp);
+                                          if (p == null) continue;
+                                          var os = p.GetType().GetProperty("overrideState");
+                                          var val = p.GetType().GetProperty("value");
+                                          if (os == null || val == null || !(bool)os.GetValue(p, null)) continue;
+                                          vols.Append(f.Name + "=" + val.GetValue(p, null) + " ");
+                                      }
+                                      vols.Append("} ");
+                                  }
+                              }
+                          }
+                          catch (Exception) { }
+                      }
+                  }
+                  var lsb = new StringBuilder();
+                  foreach (var kv in types) lsb.Append(kv.Key + ":" + kv.Value + " ");
+                  sb.AppendLine("Light2D: " + lights + "  " + lsb + " intensity " + minI + ".." + maxI);
+                  sb.AppendLine("volumes: " + (vols.Length > 0 ? vols.ToString() : "none"));
+
+                  // what are the sprites drawn with?
+                  var srs = UnityEngine.Object.FindObjectsOfType<SpriteRenderer>();
+                  int nullSprite = 0;
+                  var shaders = new Dictionary<string, int>();
+                  for (int i = 0; i < srs.Length; i++)
+                  {
+                      if (srs[i].sprite == null) nullSprite++;
+                      var m = srs[i].sharedMaterial;
+                      string key = m == null ? "no material" : (m.shader == null ? "no shader" : m.shader.name + (m.shader.isSupported ? "" : " (UNSUPPORTED)"));
+                      int n; shaders.TryGetValue(key, out n); shaders[key] = n + 1;
+                  }
+                  var ssb = new StringBuilder();
+                  foreach (var kv in shaders) ssb.Append(kv.Value + "x " + kv.Key + "; ");
+                  sb.AppendLine("sprites: " + srs.Length + " (no sprite: " + nullSprite + ")  " + ssb);
+
+                  // real colours on screen
+                  var t = new Texture2D(1, 1, TextureFormat.RGB24, false);
+                  sb.AppendLine("pixels centre=" + Pix(t, 0.5f, 0.5f) + "  mid-left=" + Pix(t, 0.3f, 0.5f) + "  low=" + Pix(t, 0.4f, 0.2f) + "  high=" + Pix(t, 0.6f, 0.7f));
+                  UnityEngine.Object.Destroy(t);
+                  return sb.ToString();
+              }
+
+              void OnGUI()
+              {
+                  if (string.IsNullOrEmpty(text)) return;
+                  if (style == null)
+                  {
+                      style = new GUIStyle(GUI.skin.label);
+                      style.fontSize = Mathf.Max(11, Screen.height / 62);
+                      style.wordWrap = true;
+                      style.normal.textColor = Color.white;
+                      bg = new Texture2D(1, 1);
+                      bg.SetPixel(0, 0, new Color(0f, 0f, 0f, 0.8f));
+                      bg.Apply();
+                  }
+                  GUI.depth = -1001;
+                  var area = new Rect(0, Screen.height * 0.18f, Screen.width * 0.72f, Screen.height * 0.46f);
+                  GUI.DrawTexture(area, bg);
+                  GUI.Label(area, text, style);
+              }
+          }
+          CSD
 
       # Restore the import cache (saves about an hour on later runs)
       - uses: actions/cache/restore@v4
