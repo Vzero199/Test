@@ -232,7 +232,10 @@ jobs:
                       bg.SetPixel(0, 0, new Color(0f, 0f, 0f, 0.5f));
                       bg.Apply();
                   }
-                  GUI.depth = -1000;
+                  bool hasError = false;
+          for (int i = 0; i < order.Count; i++) { if (!order[i].StartsWith("LOADED")) hasError = true; }
+          if (!hasError) return;
+          GUI.depth = -1000;
                   var area = new Rect(0, 0, Screen.width, Screen.height * 0.25f);
                   GUI.DrawTexture(area, bg);
                   string text = sceneInfo + "   time: " + Time.realtimeSinceStartup.ToString("F0") + "s\n";
