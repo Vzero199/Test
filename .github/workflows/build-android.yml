@@ -125,6 +125,11 @@ jobs:
                 r"Input\.GetKeyDown\(key\)",
                 "(UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.escapeKey.wasPressedThisFrame)")
 
+          # FitTextWidth can be called before its own Awake has run
+          patch("FitTextWidth.cs",
+                r"public void UpdateWidth\(\)\s*\{",
+                "public void UpdateWidth()\n\t{\n\t\tif (rectTransform == null) { rectTransform = GetComponent<RectTransform>(); }")
+
           # Do not restrict UI input to keyboard and mouse (a phone has neither)
           patch("PauseMenu.cs",
                 r"inputSystemUIInputModule\.actionsAsset\.devices\s*=\s*new InputDevice\[2\]\s*\{\s*Keyboard\.current,\s*Mouse\.current\s*\};",
@@ -184,18 +189,18 @@ jobs:
                   if (style == null)
                   {
                       style = new GUIStyle(GUI.skin.label);
-                      style.fontSize = Mathf.Max(14, Screen.height / 50);
+                      style.fontSize = Mathf.Max(12, Screen.height / 60);
                       style.wordWrap = true;
                       style.normal.textColor = Color.white;
                       bg = new Texture2D(1, 1);
-                      bg.SetPixel(0, 0, new Color(0f, 0f, 0f, 0.75f));
+                      bg.SetPixel(0, 0, new Color(0f, 0f, 0f, 0.5f));
                       bg.Apply();
                   }
                   GUI.depth = -1000;
-                  var area = new Rect(0, 0, Screen.width, Screen.height * 0.7f);
+                  var area = new Rect(0, 0, Screen.width, Screen.height * 0.25f);
                   GUI.DrawTexture(area, bg);
                   string text = sceneInfo + "   time: " + Time.realtimeSinceStartup.ToString("F0") + "s\n";
-                  int start = Mathf.Max(0, order.Count - 9);
+                  int start = Mathf.Max(0, order.Count - 4);
                   for (int i = start; i < order.Count; i++)
                       text += "[x" + counts[order[i]] + "] " + order[i] + "\n";
                   GUI.Label(area, text, style);
