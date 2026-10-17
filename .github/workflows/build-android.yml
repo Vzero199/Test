@@ -134,6 +134,42 @@ jobs:
           patch("PauseMenu.cs",
                 r"inputSystemUIInputModule\.actionsAsset\.devices\s*=\s*new InputDevice\[2\]\s*\{\s*Keyboard\.current,\s*Mouse\.current\s*\};",
                 "inputSystemUIInputModule.actionsAsset.devices = null;", re.S)
+
+
+          # The UI input actions only know mouse and keyboard: add touch bindings (same ones Unity's default UI uses)
+          import uuid
+          def add_touch_bindings():
+              root = "Assets/MonoBehaviour"
+              for dp, dn, fn in os.walk(root):
+                  for f in fn:
+                      if not f.endswith(".asset"):
+                          continue
+                      path = os.path.join(dp, f)
+                      t = open(path, encoding="utf-8-sig", errors="surrogateescape").read()
+                      if "m_ActionMaps" not in t or "<Mouse>/position" not in t:
+                          continue
+                      if "<Touchscreen>/touch*/position" in t:
+                          print("already has touch bindings: " + f); continue
+                      def block(mouse_path, action):
+                          return re.compile(r"(    - m_Name:[ \t]*\n      m_Id: ([0-9a-f-]+)\n      m_Path: '" + re.escape(mouse_path) +
+                                            r"'\n      m_Interactions:[^\n]*\n      m_Processors:[^\n]*\n      m_Groups:[^\n]*\n      m_Action: " + action + r"\n      m_Flags: 0\n)")
+                      new, total = t, 0
+                      for mouse_path, touch_path, action in (("<Mouse>/position", "<Touchscreen>/touch*/position", "Point"),
+                                                             ("<Mouse>/leftButton", "<Touchscreen>/touch*/press", "Click")):
+                          def add(m):
+                              nid = str(uuid.uuid5(uuid.NAMESPACE_URL, m.group(2) + touch_path))
+                              return (m.group(1) + "    - m_Name:\n      m_Id: " + nid + "\n      m_Path: '" + touch_path +
+                                      "'\n      m_Interactions:\n      m_Processors:\n      m_Groups:\n      m_Action: " + action + "\n      m_Flags: 0\n")
+                          new, c = block(mouse_path, action).subn(add, new)
+                          total += c
+                      if total:
+                          open(path, "w", encoding="utf-8", newline="", errors="surrogateescape").write(new)
+                          print("added %d touch bindings to %s" % (total, f))
+                      else:
+                          print("WARNING: no Point/Click bindings matched in " + f)
+
+          import os
+          add_touch_bindings()
           PY
           cat > Assets/PortDebugOverlay.cs <<'CS'
           // Temporary debugging aid (written by the build workflow). Shows the current scene and errors.
@@ -345,10 +381,45 @@ jobs:
           PY
 
       # AssetRipper exports empty placeholder shaders. Swap them for the real package
-      # shaders (TextMeshPro, URP 2D sprites, lights, blit...) and repoint the materials.
+      # shaders (URP, plus TextMeshPro's from its Essential Resources) and repoint the materials.
       - name: Replace placeholder shaders
         run: |
           python3 - <<'PY'
+          import glob, os, shutil, tarfile, tempfile
+
+          def extract_tmp_shaders():
+              pk = glob.glob("Library/PackageCache/com.unity.textmeshpro@*/Package Resources/TMP Essential Resources.unitypackage")
+              if not pk:
+                  print("TMP Essential Resources.unitypackage not found; TMP shaders not extracted")
+                  return
+              tmp = tempfile.mkdtemp()
+              with tarfile.open(pk[0]) as tf:
+                  try:
+                      tf.extractall(tmp, filter="data")
+                  except TypeError:
+                      tf.extractall(tmp)
+              n = 0
+              for guid in os.listdir(tmp):
+                  d = os.path.join(tmp, guid)
+                  pn = os.path.join(d, "pathname")
+                  if not os.path.exists(pn):
+                      continue
+                  rel = open(pn, encoding="utf-8").read().splitlines()[0].strip()
+                  if not rel.startswith("Assets/TextMesh Pro/Shaders/"):
+                      continue
+                  if not os.path.exists(os.path.join(d, "asset")):
+                      continue
+                  dest = rel
+                  os.makedirs(os.path.dirname(dest), exist_ok=True)
+                  shutil.copyfile(os.path.join(d, "asset"), dest)
+                  if os.path.exists(os.path.join(d, "asset.meta")):
+                      shutil.copyfile(os.path.join(d, "asset.meta"), dest + ".meta")
+                  n += 1
+              shutil.rmtree(tmp, ignore_errors=True)
+              print("TMP shader files extracted: %d" % n)
+
+          extract_tmp_shaders()
+
           import os, re
 
           NAME_RE = re.compile(r'^\s*Shader\s+"([^"]+)"', re.M)
@@ -376,6 +447,14 @@ jobs:
                       g = GUID_RE.search(read(os.path.join(dp, f + ".meta")))
                       if m and g:
                           real.setdefault(m.group(1), g.group(1))
+          TMPDIR = "Assets/TextMesh Pro/Shaders"
+          for dp, dn, fn in os.walk(TMPDIR):
+              for f in fn:
+                  if f.endswith(".shader") and os.path.exists(os.path.join(dp, f + ".meta")):
+                      m = NAME_RE.search(read(os.path.join(dp, f))[:4000])
+                      g = GUID_RE.search(read(os.path.join(dp, f + ".meta")))
+                      if m and g:
+                          real[m.group(1)] = g.group(1)
           print("package shaders indexed: %d" % len(real))
 
           # 2) the recovered project holds empty placeholder shaders: find the ones that exist in packages
@@ -383,6 +462,8 @@ jobs:
           doomed = []
           unmatched = []
           for dp, dn, fn in os.walk("Assets"):
+              if dp.replace("\\", "/").startswith(TMPDIR):
+                  continue
               for f in fn:
                   if not f.endswith(".shader"):
                       continue
