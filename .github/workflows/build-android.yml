@@ -344,6 +344,87 @@ jobs:
               main(["Assets"], pk)
           PY
 
+      # AssetRipper exports empty placeholder shaders. Swap them for the real package
+      # shaders (TextMeshPro, URP 2D sprites, lights, blit...) and repoint the materials.
+      - name: Replace placeholder shaders
+        run: |
+          python3 - <<'PY'
+          import os, re
+
+          NAME_RE = re.compile(r'^\s*Shader\s+"([^"]+)"', re.M)
+          GUID_RE = re.compile(r"^guid:\s*([0-9a-f]{32})", re.M)
+          REF_EXT = {".mat", ".asset", ".prefab", ".unity", ".shadervariants", ".playable", ".rendertexture",
+                     ".controller", ".overridecontroller", ".spriteatlas", ".lighting", ".preset"}
+
+          def read(path):
+              with open(path, encoding="utf-8-sig", errors="surrogateescape") as f:
+                  return f.read()
+
+          pk = "Library/PackageCache"
+          if not os.path.isdir(pk):
+              print("WARNING: Library/PackageCache not found, shaders not replaced")
+              raise SystemExit(0)
+
+          # 1) shader name -> GUID of the real shader in the packages
+          real = {}
+          for dp, dn, fn in os.walk(pk):
+              if "/Tests" in dp.replace("\\", "/"):
+                  continue
+              for f in fn:
+                  if f.endswith(".shader") and os.path.exists(os.path.join(dp, f + ".meta")):
+                      m = NAME_RE.search(read(os.path.join(dp, f))[:4000])
+                      g = GUID_RE.search(read(os.path.join(dp, f + ".meta")))
+                      if m and g:
+                          real.setdefault(m.group(1), g.group(1))
+          print("package shaders indexed: %d" % len(real))
+
+          # 2) the recovered project holds empty placeholder shaders: find the ones that exist in packages
+          swap = {}
+          doomed = []
+          unmatched = []
+          for dp, dn, fn in os.walk("Assets"):
+              for f in fn:
+                  if not f.endswith(".shader"):
+                      continue
+                  path = os.path.join(dp, f)
+                  text = read(path)
+                  m = NAME_RE.search(text)
+                  mp = path + ".meta"
+                  if not m or not os.path.exists(mp):
+                      continue
+                  g = GUID_RE.search(read(mp))
+                  if not g:
+                      continue
+                  if m.group(1) in real:
+                      swap[g.group(1)] = real[m.group(1)]
+                      doomed.append(path)
+                  else:
+                      unmatched.append(m.group(1))
+          print("placeholder shaders replaced by package shaders: %d" % len(swap))
+          if unmatched:
+              print("NOT in any package (still placeholders): " + ", ".join(sorted(unmatched)))
+
+          # 3) repoint every reference, then delete the placeholders
+          if swap:
+              pat = re.compile("guid: (" + "|".join(swap) + ")")
+              n = 0
+              for root in ("Assets", "ProjectSettings"):
+                  for dp, dn, fn in os.walk(root):
+                      for f in fn:
+                          if os.path.splitext(f)[1].lower() not in REF_EXT:
+                              continue
+                          path = os.path.join(dp, f)
+                          t = read(path)
+                          new, c = pat.subn(lambda m: "guid: " + swap[m.group(1)], t)
+                          if c:
+                              with open(path, "w", encoding="utf-8", newline="", errors="surrogateescape") as fo:
+                                  fo.write(new)
+                              n += c
+              print("shader references repointed: %d" % n)
+              for p in doomed:
+                  os.remove(p); os.remove(p + ".meta")
+          PY
+
       - uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
